@@ -1,22 +1,15 @@
-import sympy
-from itertools import permutations
+# 1504170715041707n mod 4503599627370517.
+def eulercoin(n):
+    return int((1504170715041707 * n) % 4503599627370517)
 
 
-def join_tuple_string(strings_tuple) -> str:
-    return " ".join(strings_tuple)
+eulercoins = [1504170715041707]
+for i in range(1, 1000):
+    if eulercoin(i) < all(eulercoins):
+        eulercoins.append(eulercoin(i))
+# 1504170715041707 A
+# 3008341430083414 A*2
+# 8912517754604 C-A*2
 
-
-numeros = ["1", "2", "3", "4", "5", "6", "7"]
-
-primos = []
-pandigits1 = list(permutations(numeros))
-pandigits2 = []
-for i in pandigits1:
-    pandigits2.append(int(join_tuple_string(i).replace(" ", "")))
-
-
-for j in pandigits2:
-    if sympy.ntheory.primetest.isprime(j):
-        print(j)
-
-# sympy.ntheory.primetest.isprime
+print(eulercoin(1000))
+print(sum(eulercoins))

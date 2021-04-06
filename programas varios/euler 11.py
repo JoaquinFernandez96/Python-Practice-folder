@@ -444,29 +444,60 @@ a = [
     ],
 ]
 # The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
+n = 4  # editar
+df = pd.DataFrame(a).astype("int8")
+
+print(df)
+print(np.diagonal(df[1:]))
+# diagonal -> row)
 
 
-print(c)
-# df = np.array(c, dtype="int8")
-# print(df)
-# shape = np.shape(df)  # row, col
+def ProdH(frame):
+    productoH = []
+    for i in range(20):
+        for j in range(20):
+            productoH.append(np.prod(frame.iloc[i, j : j + n]))  # fila, columna
+    return productoH
 
 
-# def ProdDerIzq(array):
-#     """
-#     chequear row por row
-#     agarrar un num y multiplicar por 3 der
-#     hasta row 16 inclusive
-#     """
-#     DerIzqProd = []
-#     prod = 1
-#     for i in array:  # [ 1 70 54 71 83 51 54 69 16 92 33 48 61 43 52  1 89 19 67 48]
-#         for j in range(len(i)):
-#             if j < len(i) - 4:
-#                 DerIzqProd.append(np.prod(i[j : j + 3]))
-#     return DerIzqProd
+def ProdV(frame):
+    productoV = []
+    for i in range(20):
+        for j in range(20):
+            productoV.append(np.prod(frame.iloc[i : i + n - 1, j]))  # fila, columna
+    return productoV
 
 
-print(ProdDerIzq)
-MaxDerIzq = max(ProdDerIzq(df))
-print(MaxDerIzq)
+#####PROBLEMA DIAGONALES: Solo usa diag de columna Nº1
+def ProdDD(frame):
+    productoDD = []
+    for i in range(20):  # fila
+        for j in range(17):  # col
+            for m in range(20):  # para lista
+                productoDD.append(
+                    np.prod(np.diagonal(frame[i:][j])[m : m + n])
+                )  # fila, columna
+    return productoDD
+
+
+def ProdDI(frame):
+    productoDI = []
+    for i in range(20):  # fila
+        for j in range(17):  # col
+            for m in range(20):
+                productoDI.append(
+                    np.prod(np.diagonal(np.fliplr(frame)[i:][j])[m : m + n])
+                )  # fila, columna
+    return productoDI
+
+
+horizontal = max(ProdH(df))
+print(horizontal)
+vertical = max(ProdV(df))
+print(vertical)
+diagDerecha = max(ProdDD(df))
+print(diagDerecha)
+diagIzquierda = max(ProdDI(df))
+print(diagIzquierda)
+MaxProd = max(horizontal, vertical, diagIzquierda, diagDerecha)
+print("MaxProd: ", MaxProd)
