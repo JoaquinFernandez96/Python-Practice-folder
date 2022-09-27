@@ -10,6 +10,7 @@ max = e
 v_temp = []
 min_temp = []
 max_temp = []
+vmod_temp = []
 while True:
     if min == 1:
         break
@@ -19,6 +20,7 @@ while True:
     min_temp.append(min)
     max_temp.append(max)
     v %= mod
+    vmod_temp.append(v)
     if v > max:
         max = v
     if v < min:
@@ -27,9 +29,10 @@ while True:
 print("TOTAL:", tot)
 
 fig, ax = plt.subplots()  # Create a figure and an axes.
-ax.plot(v_temp[5:15], label="V")  # Plot some data on the axes.
-ax.plot(min_temp[5:15], label="min")  # Plot more data on the axes...
-ax.plot(max_temp[5:15], label="max")  # ... and some more.
+ax.plot(v_temp[:5], label="V")  # Plot some data on the axes.
+ax.plot(min_temp[:5], label="min")  # Plot more data on the axes...
+ax.plot(max_temp[:5], label="max")  # ... and some more.
+ax.plot(vmod_temp[:5], label="Vmod")
 ax.set_xlabel("x label")  # Add an x-label to the axes.
 ax.set_ylabel("y label")  # Add a y-label to the axes.
 ax.set_title("eulercoin")  # Add a title to the axes.
